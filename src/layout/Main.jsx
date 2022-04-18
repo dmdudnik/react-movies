@@ -11,26 +11,34 @@ class Main extends React.Component {
         loading: true,
     };
 
+    componentDidMount() {
+        fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=star&plot=short`)
+            .then((response) => response.json())
+            .then((data) =>
+                this.setState({ movies: data.Search, loading: false })
+            )
+            .catch((err) => {
+                console.error(err);
+                this.setState({ loading: false });
+            });
+    }
+
     searchMovies = (str, type = "all") => {
         this.setState({ loading: true });
         fetch(
-            `http://www.omdbapi.com/?apikey=${API_KEY}&s=${str}&plot=short ${
+            `https://www.omdbapi.com/?apikey=${API_KEY}&s=${str}&plot=short ${
                 type !== "all" ? `&type=${type}` : ""
             }`
         )
             .then((response) => response.json())
             .then((data) =>
                 this.setState({ movies: data.Search, loading: false })
-            );
+            )
+            .catch((err) => {
+                console.error(err);
+                this.setState({ loading: false });
+            });
     };
-
-    componentDidMount() {
-        fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&s=star&plot=short`)
-            .then((response) => response.json())
-            .then((data) =>
-                this.setState({ movies: data.Search, loading: false })
-            );
-    }
 
     render() {
         const { movies, loading } = this.state;
