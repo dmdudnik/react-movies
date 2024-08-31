@@ -1,3 +1,5 @@
+import { Movies } from "./Movies"
+
 function Movie (props){
     const{
         Title: title,
@@ -14,7 +16,7 @@ function Movie (props){
     </div>
     <div className="card-content">
       <span className="card-title activator grey-text text-darken-4">{title}</span>
-      <p>{type}<span>{year}</span></p>
+      <p>{type}<span className ='right'>{year}</span></p>
     </div>
   </div>
     )
